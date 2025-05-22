@@ -1,0 +1,39 @@
+# Use the official Python slim image as the base
+FROM python:3.13.2-slim-bookworm
+
+# Prevent Python from writing .pyc files and enable unbuffered logging
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install system dependencies for building mysqlclient
+RUN apt-get update && apt-get install -y \
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download wait-for-it script
+RUN curl -o /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
+    chmod +x /wait-for-it.sh
+
+# Copy requirements file to the working directory
+COPY requirements.txt /app/
+
+# Upgrade pip and install Python dependencies
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy the entire project to the working directory
+COPY . /app/
+
+# Expose port 8000 for the Django app
+EXPOSE 8000
+
+# Use wait-for-it to delay Django start until MySQL is ready
+ENTRYPOINT ["/wait-for-it.sh", "db:3306", "--"]
+
+# Command to run the Django application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

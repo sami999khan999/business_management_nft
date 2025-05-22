@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --primary: #2dac5c;
+    --primary-foreground: #222222;
+    --secondary: #fdfdfd;
+    --secondary-foreground: #ffffff;
+    --border: #d8d8db;
+    --underline: #e4e4e7;
+    --mutated: #49596198;
+  }
+
+  .dark {
+    --background: #020916;
+    --primary: #2dac5c;
+    --primary-foreground: #97a3ad;
+    --secondary: #111926;
+    --secondary-foreground: #141e2e;
+    --border: rgb(39, 50, 58);
+    --underline: #141f30;
+    --mutated: #495961c7;
+  }
+}
+@layer base {
+  body {
+    @apply bg-background font-baloo antialiased transition-colors duration-200;
+  }
+
+  input {
+    @apply border p-2 xl:p-3 rounded outline-none w-full text-lg xl:text-xl;
+  }
+
+  ::-webkit-scrollbar {
+    /* width: 10px; */
+    @apply w-1 xl:w-3 h-1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* background-color: #ef4444; */
+    @apply bg-primary rounded-full;
+  }
+  /* 
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-secondary-foreground;
+  } */
+}
+
+@layer components {
+  .add_field {
+    @apply h-9 xl:h-12 xl:px-6 px-4 text-sm xl:text-xl bg-secondary-foreground text-primary-foreground rounded-full shadow-xl border border-border_color;
+  }
+
+  .error_message {
+    @apply text-red-700 text-sm xl:text-lg font-medium px-3;
+  }
+
+  .truncate-text {
+    /* max-width: 8rem; Set a maximum width */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .break-words {
+    overflow-wrap: break-word; /* Ensures text breaks within container */
+    word-wrap: break-word; /* Provides similar behavior */
+    white-space: normal; /* Allows text to wrap to new lines */
+    word-break: break-word; /* Breaks long words as needed */
+  }
+
+  .remove-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .submit-btn {
+    @apply bg-primary mt-6 h-11 px-4 w-full rounded-full text-lg tracking-wider xl:text-xl text-background cursor-pointer duration-200 hover:bg-secondary-foreground hover:outline outline-border_color font-medium outline-2 hover:text-primary-foreground text-center hover:shadow-md mb-1;
+  }
+
+  .table-header {
+    @apply flex text-background justify-between px-4 xl:px-6 py-2 xl:py-4 xl:text-lg text-xs gap-4 mt-3 dark:bg-background dark:text-primary-foreground bg-primary font-medium tracking-wide uppercase rounded-t-lg;
+  }
+
+  .table-col {
+    @apply flex justify-between border-b border-underline px-4 xl:px-6 py-2 xl:py-4 xl:text-xl gap-4 text-xs text-primary-foreground relative hover:bg-gray-100 dark:hover:bg-secondary-foreground duration-200 cursor-pointer;
+  }
+
+  .table-wrapper {
+    @apply w-full h-fit bg-secondary px-2 py-6 xl:py-8 xl:px-8 rounded-xl mb-4 border border-border_color;
+  }
+
+  .inputfield {
+    @apply border border-border_color text-primary-foreground text-base xl:text-xl bg-secondary-foreground rounded-full py-2 px-6 shadow-sm;
+  }
+
+  .close-btn {
+    @apply absolute xl:top-6 top-3 right-3 xl:right-6 text-2xl xl:text-3xl text-primary-foreground hover:bg-gray-100 dark:hover:bg-secondary-foreground w-fit p-1 rounded-md;
+  }
+}
