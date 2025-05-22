@@ -18,3 +18,8 @@ services:
       - ./backend/.env
     environment:
       MYSQL_HOST: db
+
+  db:
+    image: postgres:latest
+    container_name: business_management_nft_db
+    env_file: "./backend/.env"
